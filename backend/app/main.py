@@ -19,6 +19,6 @@ app.include_router(interview.router, prefix="/api/v1")
 def read_root():
     return {"message": "Welcome to the AI Interview Assistant API"}
 
-@app.get("/status")
-def get_status():
-    return {"status": "ok", "message": "Backend is running"}
+# @app.get("/status")
+# def get_status():
+#     return {"status": "ok", "message": "Backend is running"}

@@ -17,7 +17,7 @@ class ChatResponse(BaseModel):
 @router.post("/chat/text", response_model=ChatResponse)
 async def chat_with_text(
     question: str = Form(...),
-    model_provider: str = Form("qwen") # 'gemini', 'qwen'
+    model_provider: str = Form("gemini") # 'gemini', 'qwen'
 ):
     """Handles text-based questions."""
     try:
@@ -33,7 +33,7 @@ async def chat_with_text(
 @router.post("/chat/audio", response_model=ChatResponse)
 async def chat_with_audio(
     audio_file: UploadFile = File(...),
-    model_provider: str = Form("qwen")
+    model_provider: str = Form("gemini")
 ):
     """Handles audio-based questions."""
     logger.info(f"Received audio request with model: '{model_provider}' and file type: {audio_file.content_type}")
@@ -57,3 +57,7 @@ async def chat_with_audio(
         logger.error(f"Error processing audio question: {e}")
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Backend processing error: {str(e)}")
+
+@router.get("/status")
+def get_status():
+    return {"status": "ok", "message": "Backend is running"}
